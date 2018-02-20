@@ -3,59 +3,62 @@
 //
 
 #include "BoxView.h"
+#include "BoxViewService.h"
 
-BoxView::BoxView(BoxData * boxData_)
+
+BoxView::BoxView(std::string texture_)
+                :service(BoxViewService::acquire())
 {
 
-    boxData = boxData_;
     // 1) Generate Texture
-    TextureGen temp(boxData->texture);
+    TextureGen temp(texture_);
     texture = temp.texture;
 
-    // 2) Generate VAO
-    BoxVAO vao;
-    VAO = vao.VAO;
-
-
-    // 3) Generate Shader Program
-    shaderptr = new Shaders("/home/ahodges/alex_dad/Box Game/Objects/Box/VertexShader.glsl","/home/ahodges/alex_dad/Box Game/Objects/Box/FragmentShader.glsl");
 }
 
 
 
-void BoxView::Draw() {
-    glUseProgram(shaderptr->ID);
-    glUniform1i(glGetUniformLocation(shaderptr->ID, "texture1"), 0);
-    glActiveTexture(GL_TEXTURE0);
+void BoxView::Draw(BoxData const & boxData) {
+
+    service.prepare();
     glBindTexture(GL_TEXTURE_2D, texture);
 
+    service.setViewMatrix(getViewMatrix(boxData));
+    service.setModelMatrix(getModelMatrix(boxData));
+    service.setProjectionMatrix(getProjectionMatrix(boxData));
+
+    service.Draw();
+
+}
 
 
-
-    glm::vec3 cameraDirection = glm::normalize(boxData->cameraPos - boxData->cameraTarget);
-    glm::vec3 cameraRight = glm::normalize(glm::cross(boxData->cameraUp, cameraDirection));
+glm::mat4 BoxView::getViewMatrix(BoxData const & boxData)
+{
+    glm::vec3 cameraDirection = glm::normalize(boxData.cameraPos - boxData.cameraTarget);
+    glm::vec3 cameraRight = glm::normalize(glm::cross(boxData.cameraUp, cameraDirection));
     glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
 
 
     glm::mat4 view(1.0f);
-    view = glm::lookAt(boxData->cameraPos, boxData->cameraPos + boxData->cameraFront, cameraUp);
+    view = glm::lookAt(boxData.cameraPos, boxData.cameraPos + boxData.cameraFront, cameraUp);
 
+    return view;
+}
+
+glm::mat4 BoxView::getModelMatrix(BoxData const &boxData)
+{
     glm::mat4 model(1.0f);
-    model = glm::translate(model,glm::vec3(boxData->coordX,boxData->coordY,boxData->coordZ));
+    model = glm::translate(model,glm::vec3(boxData.coordX,boxData.coordY,boxData.coordZ));
     float angle = 20.0f * 1 + 5;
     model = glm::rotate(model, (float) glfwGetTime() * glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 
+    return model;
+}
+
+glm::mat4 BoxView::getProjectionMatrix(BoxData const &)
+{
     glm::mat4 projection(1.0f);
     projection = glm::perspective(glm::radians(45.0f), ((float) 1920 / (float) 1080), 0.1f, 100.0f);
 
-
-
-    shaderptr->setMat4("view",view);
-    shaderptr->setMat4("projection",projection);
-    shaderptr->setMat4("model",model);
-
-
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-
+    return projection;
 }
