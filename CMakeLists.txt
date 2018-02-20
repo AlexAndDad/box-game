@@ -19,6 +19,13 @@ hunter_add_package(sugar)
 find_package(sugar CONFIG REQUIRED)
 
 set(program_name Box_Game)
+
+sugar_include(Display)
+sugar_include(Input)
+sugar_include(Objects)
+sugar_include(Textures)
+sugar_include(ShaderGen)
+sugar_include(Game\ Controller)
 sugar_files(SOURCE_FILES main.cpp)
 add_executable(${program_name} ${SOURCE_FILES})
 target_include_directories(${program_name} PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
