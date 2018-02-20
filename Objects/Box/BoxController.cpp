@@ -10,7 +10,7 @@ BoxController::BoxController(std::string texture_)
                     ,boxView(std::move(texture_))
 {}
 
-void BoxController::Draw()
+void BoxController::Draw(glm::mat4 const & viewMatrix)
 {
-    boxView.Draw(boxData);
+    boxView.Draw(boxData,viewMatrix);
 }

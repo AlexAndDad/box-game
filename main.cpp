@@ -14,7 +14,7 @@
 #include "Objects/Box/BoxView.h"
 #include "Objects/Box/BoxController.h"
 #include <string>
-
+#include "Game Controller/GameController.h"
 
 int main()
 {
@@ -22,8 +22,12 @@ int main()
     DisplayController openGLDisplay;
     OpenGlUserInput openGLInput(openGLDisplay.window);
 
+    GameController gameController;
+
+
     std::string texture = "awesomeface.png";
     BoxController Box(texture);
+
 
 
 
@@ -35,7 +39,8 @@ int main()
         glClearColor(0.3f, 0.3f, 0.6f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        Box.Draw();
+        auto viewMatrix = gameController.camera.calcViewMatrix();
+        Box.Draw(viewMatrix);
 
         glfwSwapBuffers(openGLDisplay.window);
         glfwPollEvents();

@@ -16,7 +16,7 @@ struct BoxViewService {
     static BoxViewService & acquire();
 
     void prepare();
-    void setViewMatrix(glm::mat4 view);
+    void setViewMatrix(glm::mat4 const & view);
     void setModelMatrix(glm::mat4 model);
     void setProjectionMatrix(glm::mat4 projection);
     void Draw();

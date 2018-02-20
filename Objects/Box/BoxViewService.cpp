@@ -27,7 +27,7 @@ void BoxViewService::prepare()
 }
 
 
-void BoxViewService::setViewMatrix(glm::mat4 view)
+void BoxViewService::setViewMatrix(glm::mat4 const & view)
 {
     shaderptr->setMat4("view",view);
 }

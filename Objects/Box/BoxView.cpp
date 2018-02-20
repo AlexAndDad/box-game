@@ -18,12 +18,12 @@ BoxView::BoxView(std::string texture_)
 
 
 
-void BoxView::Draw(BoxData const & boxData) {
+void BoxView::Draw(BoxData const & boxData, glm::mat4 const & viewMatrix) {
 
     service.prepare();
     glBindTexture(GL_TEXTURE_2D, texture);
 
-    service.setViewMatrix(getViewMatrix(boxData));
+    service.setViewMatrix(viewMatrix);
     service.setModelMatrix(getModelMatrix(boxData));
     service.setProjectionMatrix(getProjectionMatrix(boxData));
 
@@ -32,18 +32,7 @@ void BoxView::Draw(BoxData const & boxData) {
 }
 
 
-glm::mat4 BoxView::getViewMatrix(BoxData const & boxData)
-{
-    glm::vec3 cameraDirection = glm::normalize(boxData.cameraPos - boxData.cameraTarget);
-    glm::vec3 cameraRight = glm::normalize(glm::cross(boxData.cameraUp, cameraDirection));
-    glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
 
-
-    glm::mat4 view(1.0f);
-    view = glm::lookAt(boxData.cameraPos, boxData.cameraPos + boxData.cameraFront, cameraUp);
-
-    return view;
-}
 
 glm::mat4 BoxView::getModelMatrix(BoxData const &boxData)
 {
