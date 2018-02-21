@@ -53,8 +53,7 @@ void CameraController::update() {
     }
 
 
-
-    cameraData.cameraPos.x += cameraData.velocity.x;
-    cameraData.cameraPos.y += cameraData.velocity.y;
-    cameraData.cameraPos.z += cameraData.velocity.z;
+    cameraData.cameraPos.x += cameraData.velocity.x * deltaTime;
+    cameraData.cameraPos.y += cameraData.velocity.y * deltaTime;
+    cameraData.cameraPos.z += cameraData.velocity.z * deltaTime;
 }
