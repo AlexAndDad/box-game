@@ -79,8 +79,8 @@ if (TARGET OpenGL::OpenGL)
 endif ()
 
 #warnings
+include(TargetOptions)
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
-    include(TargetOptions)
     AllWarnings(${program_name})
 endif ()
 SetDefaultSource(${program_name})
