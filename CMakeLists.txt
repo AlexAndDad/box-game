@@ -78,6 +78,9 @@ if (TARGET OpenGL::OpenGL)
     target_link_libraries(${program_name} PUBLIC OpenGL::OpenGL)
 endif ()
 
+hunter_add_package(freetype)
+find_package(freetype CONFIG REQUIRED)
+target_link_libraries(${program_name} PUBLIC freetype::freetype)
 #warnings
 include(TargetOptions)
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
