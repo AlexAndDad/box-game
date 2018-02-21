@@ -5,12 +5,12 @@
 #include "BoxController.h"
 
 
-BoxController::BoxController(std::string texture_)
-                    :boxData(-0.0,-0.0,-0.0)
+BoxController::BoxController(std::string texture_,BoxData bd)
+                    :boxData(bd)
                     ,boxView(std::move(texture_))
 {}
 
-void BoxController::Draw(glm::mat4 const & viewMatrix)
+void BoxController::Draw()
 {
-    boxView.Draw(boxData,viewMatrix);
+    boxView.Draw(boxData);
 }

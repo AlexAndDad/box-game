@@ -14,9 +14,9 @@
 
 struct BoxController {
 
-    BoxController(std::string texture_);
+    BoxController(std::string texture_,BoxData bd=BoxData());
 
-    void Draw(glm::mat4 const & viewMatrix);
+    void Draw();
 
     BoxData boxData;
 

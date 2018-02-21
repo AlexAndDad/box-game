@@ -7,7 +7,6 @@
 
 
 BoxView::BoxView(std::string texture_)
-                :service(BoxViewService::acquire())
 {
 
     // 1) Generate Texture
@@ -16,16 +15,24 @@ BoxView::BoxView(std::string texture_)
 
 }
 
-
-
-void BoxView::Draw(BoxData const & boxData, glm::mat4 const & viewMatrix) {
+BoxViewService& BoxView::getService()
+{
+    auto & service = BoxViewService::acquire();
 
     service.prepare();
+    return service;
+
+}
+
+void BoxView::Draw(BoxData const & boxData) {
+
+    auto & service = getService();
+
     glBindTexture(GL_TEXTURE_2D, texture);
 
-    service.setViewMatrix(viewMatrix);
+
     service.setModelMatrix(getModelMatrix(boxData));
-    service.setProjectionMatrix(getProjectionMatrix(boxData));
+
 
     service.Draw();
 
@@ -44,10 +51,3 @@ glm::mat4 BoxView::getModelMatrix(BoxData const &boxData)
     return model;
 }
 
-glm::mat4 BoxView::getProjectionMatrix(BoxData const &)
-{
-    glm::mat4 projection(1.0f);
-    projection = glm::perspective(glm::radians(45.0f), ((float) 1920 / (float) 1080), 0.1f, 100.0f);
-
-    return projection;
-}

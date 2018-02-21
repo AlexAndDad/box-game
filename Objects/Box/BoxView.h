@@ -27,18 +27,21 @@ struct BoxView {
 
     BoxView(std::string texture_);
 
-    void Draw(BoxData const & boxData, glm::mat4 const & viewMatrix);
+    void Draw(BoxData const & boxData);
 
 
     glm::mat4 getModelMatrix(BoxData const & boxData);
-    glm::mat4 getProjectionMatrix(BoxData const & boxData);
+
 
 
     std::string texture_current;
     unsigned int texture;
 
 
-    BoxViewService& service;
+
+
+private:
+    BoxViewService & getService();
 
 };
 

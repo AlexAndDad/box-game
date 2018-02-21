@@ -13,10 +13,30 @@ BoxViewService::BoxViewService()
     VAO = vao.VAO;
 }
 
+std::unique_ptr<BoxViewService>& BoxViewService::storage()
+{
+    static std::unique_ptr<BoxViewService> cunt;
+    return cunt;
+}
+
+BoxViewService& BoxViewService::acquire(RenderSettings const &renderSettings)
+{
+    auto & self = storage();
+    if (!self)
+    {
+        self.reset(new BoxViewService);
+    }
+
+    self->view = renderSettings.viewMatrix;
+    self->projection = renderSettings.projectionMatrix;
+    return * self;
+}
+
 BoxViewService& BoxViewService::acquire()
 {
-    static BoxViewService theOne;
-    return theOne;
+    auto & self = storage();
+    assert(self);
+    return * self;
 }
 
 void BoxViewService::prepare()
@@ -24,23 +44,20 @@ void BoxViewService::prepare()
     glUseProgram(shaderptr->ID);
     shaderptr->setInt("texture1",0);
     glActiveTexture(GL_TEXTURE0);
-}
 
-
-void BoxViewService::setViewMatrix(glm::mat4 const & view)
-{
+    shaderptr->setMat4("projection",projection);
     shaderptr->setMat4("view",view);
 }
+
+
+
 
 void BoxViewService::setModelMatrix(glm::mat4 model)
 {
     shaderptr->setMat4("model",model);
 }
 
-void BoxViewService::setProjectionMatrix(glm::mat4 projection)
-{
-    shaderptr->setMat4("projection",projection);
-}
+
 void BoxViewService::Draw()
 {
     glBindVertexArray(VAO);

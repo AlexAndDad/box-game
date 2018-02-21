@@ -10,10 +10,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "ShaderGen/Shaders.h"
-
+#include "RenderSettings/RenderSettings.h"
 struct BoxViewService {
 
+
+    static BoxViewService & acquire(RenderSettings const & renderSettings);
     static BoxViewService & acquire();
+
+
 
     void prepare();
     void setViewMatrix(glm::mat4 const & view);
@@ -27,9 +31,13 @@ struct BoxViewService {
 
 
 
+
 private:
 
+    static std::unique_ptr<BoxViewService> & storage();
     BoxViewService();
+    glm::mat4 view;
+    glm::mat4 projection;
 
 
 
