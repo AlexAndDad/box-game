@@ -5,14 +5,12 @@
 #include "BoxController.h"
 
 
-BoxController::BoxController(std::string texture_)
-{
-
-    boxDataptr = new BoxData(std::move(texture_),-0.0,-0.0,-0.0);
-    boxViewptr = new BoxView(boxDataptr);
-}
+BoxController::BoxController(std::string texture_,BoxData bd)
+                    :boxData(bd)
+                    ,boxView(std::move(texture_))
+{}
 
 void BoxController::Draw()
 {
-    boxViewptr->Draw();
+    boxView.Draw(boxData);
 }

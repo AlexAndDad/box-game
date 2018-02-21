@@ -8,15 +8,19 @@
 #include "BoxData.h"
 #include "BoxView.h"
 #include <string>
+#include <memory>
+
+
 
 struct BoxController {
 
-    BoxController(std::string texture_);
+    BoxController(std::string texture_,BoxData bd=BoxData());
 
     void Draw();
 
-    BoxData * boxDataptr;
-    BoxView * boxViewptr;
+    BoxData boxData;
+
+    BoxView boxView;
 
 };
 

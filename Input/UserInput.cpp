@@ -4,3 +4,7 @@
 
 #include "UserInput.h"
 
+bool UserInput::isKeyPressed(GameKey key)
+{
+    return keys_pressed[key];
+}

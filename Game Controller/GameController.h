@@ -4,9 +4,11 @@
 
 #ifndef BOX_GAME_GAMECONTROLLER_H
 #define BOX_GAME_GAMECONTROLLER_H
+#include "Objects/Camera/CameraData.h"
 
+struct GameController {
 
-class GameController {
+    CameraData camera;
 
 
 

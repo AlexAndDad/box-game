@@ -21,15 +21,27 @@
 #include "BoxVAO.h"
 #include "ShaderGen/Shaders.h"
 
-struct BoxView {
-    BoxView(BoxData * boxData_);
+struct BoxViewService;
 
-    void Draw();
-    BoxData * boxData;
+struct BoxView {
+
+    BoxView(std::string texture_);
+
+    void Draw(BoxData const & boxData);
+
+
+    glm::mat4 getModelMatrix(BoxData const & boxData);
+
+
 
     std::string texture_current;
-    unsigned int texture,VAO;
-    Shaders * shaderptr;
+    unsigned int texture;
+
+
+
+
+private:
+    BoxViewService & getService();
 
 };
 

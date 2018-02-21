@@ -22,4 +22,8 @@ void OpenGlUserInput::getInput(GLFWwindow* window,int key, int scancode , int ac
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
+    if (key == GLFW_KEY_S)
+    {
+        self->keys_pressed[CameraBack] = action == GLFW_PRESS ? true:false;
+    }
 }

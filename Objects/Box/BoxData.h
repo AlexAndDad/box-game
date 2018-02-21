@@ -11,15 +11,9 @@
 
 struct BoxData {
 
-    BoxData(std::string texture_, float x=0,float y=0, float z=0);
+    BoxData(float x=0,float y=0, float z=0);
 
     float coordX,coordY,coordZ;
-    std::string texture;
-
-    glm::vec3 cameraFront;
-    glm::vec3 cameraUp;
-    glm::vec3 cameraPos;
-    glm::vec3 cameraTarget;
 
 };
 
