@@ -14,10 +14,11 @@
 #include "Objects/Box/BoxView.h"
 #include "Objects/Box/BoxController.h"
 #include <string>
+#include "Resources/resource_path.hpp"
 
-
-int main()
+int main(int argc, const char** argv)
 {
+    ResourcePath::setProgramPath(argv[0]);
 
     DisplayController openGLDisplay;
     OpenGlUserInput openGLInput(openGLDisplay.window);
