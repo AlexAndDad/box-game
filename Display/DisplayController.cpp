@@ -14,9 +14,10 @@ DisplayController::DisplayController()
 #if __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 #endif
-    SCR_WIDTH  = glfwGetVideoMode(glfwGetPrimaryMonitor())->width;
-    SCR_HEIGHT = glfwGetVideoMode(glfwGetPrimaryMonitor())->height;
-    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "BoxGame", nullptr, nullptr);
+    auto monitor = glfwGetPrimaryMonitor();
+    SCR_WIDTH  = glfwGetVideoMode(monitor)->width;
+    SCR_HEIGHT = glfwGetVideoMode(monitor)->height;
+    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "BoxGame", monitor, nullptr);
     if (window == nullptr) {
         std::cout << "Failed to create GLFW window";
         glfwTerminate();
@@ -28,6 +29,7 @@ DisplayController::DisplayController()
     glewInit();
     glfwGetCurrentContext();
     glEnable(GL_DEPTH_TEST);
+    glfwSwapInterval(1);
 }
 
 

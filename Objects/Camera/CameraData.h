@@ -1,10 +1,10 @@
 //
 // Created by ahodges on 20/02/18.
 //
+#pragma once
 
-#ifndef BOX_GAME_CAMERACONTROLLER_H
-#define BOX_GAME_CAMERACONTROLLER_H
 #include <glm/glm.hpp>
+#include "Input/OpenGlUserInput.h"
 
 struct CameraData {
 
@@ -12,13 +12,17 @@ struct CameraData {
 
     glm::mat4 calcViewMatrix() const;
 
+    glm::vec3 velocity;
+    glm::vec3 velocityLimit;
 
     glm::vec3 cameraFront;
     glm::vec3 cameraUp;
     glm::vec3 cameraPos;
     glm::vec3 cameraTarget;
 
+    float cameraSpeed;
+
 };
 
 
-#endif //BOX_GAME_CAMERACONTROLLER_H
+

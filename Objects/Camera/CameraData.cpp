@@ -7,11 +7,16 @@
 #include <glm/gtc/type_ptr.hpp>
 
 CameraData::CameraData()
-        :cameraPos(glm::vec3(0.0f, 0.0f, 3.0f))
+        :cameraPos (glm::vec3(0.0f, 0.0f, 3.0f))
         ,cameraFront(glm::vec3(0.0f, 0.0f, -1.0f))
         ,cameraUp(glm::vec3(0.0f, 1.0f, 0.0f))
         ,cameraTarget(glm::vec3(0.0f, 0.0f, 0.0f))
-{}
+        ,velocity(glm::vec3(0.0f,0.0f,0.0f))
+        ,velocityLimit(glm::vec3(6.0f,6.0f,6.0f))
+
+{
+    cameraSpeed = 0.5;
+}
 
 
 glm::mat4 CameraData::calcViewMatrix() const
@@ -26,3 +31,4 @@ glm::mat4 CameraData::calcViewMatrix() const
 
     return view;
 }
+

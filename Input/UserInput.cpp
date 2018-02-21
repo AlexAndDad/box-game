@@ -4,7 +4,7 @@
 
 #include "UserInput.h"
 
-bool UserInput::isKeyPressed(GameKey key)
+bool UserInput::isKeyPressed(GameKey key) const
 {
     return keys_pressed[key];
 }

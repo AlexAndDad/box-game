@@ -5,18 +5,21 @@
 #ifndef BOX_GAME_USERINPUT_H
 #define BOX_GAME_USERINPUT_H
 #include <array>
+#include <boost/noncopyable.hpp>
 
-struct UserInput {
+struct UserInput :boost::noncopyable {
 
     enum GameKey{
         Quit,
         CameraBack,
-        CamerForward,
+        CameraForward,
+        CameraLeft,
+        CameraRight,
 
         GameKeySize
     };
 
-    bool isKeyPressed(GameKey key);
+    bool isKeyPressed(GameKey key) const;
 
 
 protected:

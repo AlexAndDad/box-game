@@ -32,15 +32,15 @@ int main(int argc, const char** argv)
     DisplayController openGLDisplay;
     OpenGlUserInput openGLInput(openGLDisplay.window);
 
-    GameController gameController;
+    GameController gameController(openGLInput);
 
     RenderSettings renderSettings;
     renderSettings.setProjectionMatrix(45.0, openGLDisplay.SCR_WIDTH, openGLDisplay.SCR_HEIGHT);
 
 
-    std::string texture = "awesomeface.png";
-    BoxController Box(texture);
-    BoxController Box2("container.jpg",BoxData(1.0,1.0,-5.0));
+
+    BoxController Box("awesomeface.png");
+    BoxController Box2("container.jpg",BoxData(0.4,1.0,-2.0));
 
 
     while (!glfwWindowShouldClose(openGLDisplay.window)) {
@@ -49,7 +49,8 @@ int main(int argc, const char** argv)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-        auto viewMatrix = gameController.camera.calcViewMatrix();
+        gameController.update();
+        auto viewMatrix = gameController.calcViewMatrix();
         renderSettings.setViewMatrix(viewMatrix);
 
 
