@@ -23,10 +23,28 @@
 #include "Objects/Box/BoxViewService.h"
 #include "Resources/resource_path.hpp"
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 int main(int argc, const char** argv)
 {
     ResourcePath::setProgramPath(argv[0]);
+
+
+    // font test
+    FT_Library ft;
+    if(FT_Init_FreeType(&ft)) {
+        std::cerr << "Could not init freetype library\n";
+        std::exit(100);
+    }
+
+    FT_Face face;
+    auto fresource = ResourcePath::get() / "Fonts"  / "A-Bebedera.ttf";
+
+    if(FT_New_Face(ft, fresource.c_str(), 0, &face)) {
+        std::cerr << "Could not open font: " << fresource << "\n";
+        std::exit(101);
+    }
 
 
     DisplayController openGLDisplay;
