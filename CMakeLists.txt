@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 3.0)
 
 if (NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+    #
+    # Load the submodules
+    #
+    if (NOT EXISTS "${CMAKE_CURRENT_LIST_DIR}/polly/cxx17.cmake")
+        execute_process(COMMAND git submodule init WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}")
+        execute_process(COMMAND git submodule update polly WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}")
+    endif ()
+    #set the toolchain to c++17 support
     set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_LIST_DIR}/polly/cxx17.cmake")
 endif ()
 
