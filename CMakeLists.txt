@@ -32,6 +32,7 @@ sugar_include(Display)
 sugar_include(Input)
 sugar_include(Objects)
 sugar_include(Textures)
+sugar_include(Resources)
 sugar_include(ShaderGen)
 sugar_include(RenderSettings)
 sugar_include(Game\ Controller)
@@ -39,6 +40,14 @@ sugar_files(SOURCE_FILES main.cpp)
 add_executable(${program_name} ${SOURCE_FILES})
 target_include_directories(${program_name} PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 
+#
+# copy resources to correct binary directory
+#
+
+foreach (spath ${RESOURCE_FILES})
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/Resources" dpath "${spath}")
+    configure_file("${spath}" "${dpath}" COPYONLY)
+endforeach ()
 
 include(AddBoost)
 AddBoost(TARGETS ${program_name} PRIVATE COMPONENTS system filesystem)

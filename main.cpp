@@ -21,8 +21,13 @@
 #include "Game Controller/GameController.h"
 #include "RenderSettings/RenderSettings.h"
 #include "Objects/Box/BoxViewService.h"
+#include "Resources/resource_path.hpp"
 
-int main() {
+
+int main(int argc, const char** argv)
+{
+    ResourcePath::setProgramPath(argv[0]);
+
 
     DisplayController openGLDisplay;
     OpenGlUserInput openGLInput(openGLDisplay.window);

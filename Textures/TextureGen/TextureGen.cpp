@@ -3,7 +3,7 @@
 //
 
 #include "TextureGen.h"
-
+#include "Resources/resource_path.hpp"
 
 TextureGen::TextureGen(std::string texturePath)
 {
@@ -16,8 +16,10 @@ TextureGen::TextureGen(std::string texturePath)
     glBindTexture(GL_TEXTURE_2D, texture);
     //Load texture from file
     int width, height, nrChannels;
-    unsigned char *data = stbi_load(("/home/ahodges/alex_dad/Box Game/Textures/" + texturePath).c_str(), &width, &height,
-                                    &nrChannels, 0);
+
+    auto filePath = ResourcePath::get() / "Textures" / texturePath;
+
+    unsigned char *data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
     if (data) {
         //Generate texture using previously loaded data
         if (nrChannels == 3)

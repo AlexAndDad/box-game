@@ -4,10 +4,17 @@
 
 #include "BoxViewService.h"
 #include "BoxVAO.h"
+#include "Resources/resource_path.hpp"
 
 BoxViewService::BoxViewService()
 {
-    shaderptr = new Shaders("/home/ahodges/alex_dad/Box Game/Objects/Box/VertexShader.glsl","/home/ahodges/alex_dad/Box Game/Objects/Box/FragmentShader.glsl");
+
+    //3) Generate Shader Program
+    auto resourcePath = ResourcePath::get() / "Objects" / "Box";
+    auto vshaderPath = resourcePath / "VertexShader.glsl";
+    auto fshaderPath = resourcePath / "FragmentShader.glsl";
+    shaderptr = new Shaders(vshaderPath.c_str(),fshaderPath.c_str());
+
 
     BoxVAO vao;
     VAO = vao.VAO;

@@ -3,7 +3,10 @@
 //
 
 #include "BoxView.h"
+
 #include "BoxViewService.h"
+
+//#include "Resources/resource_path.hpp"
 
 
 BoxView::BoxView(std::string texture_)
@@ -21,6 +24,8 @@ BoxViewService& BoxView::getService()
 
     service.prepare();
     return service;
+
+
 
 }
 
