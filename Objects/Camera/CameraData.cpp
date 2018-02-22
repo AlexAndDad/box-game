@@ -12,17 +12,20 @@ CameraData::CameraData()
         ,cameraUp(glm::vec3(0.0f, 1.0f, 0.0f))
         ,cameraTarget(glm::vec3(0.0f, 0.0f, 0.0f))
         ,velocity(glm::vec3(0.0f,0.0f,0.0f))
-        ,velocityLimit(glm::vec3(6.0f,6.0f,6.0f))
+        ,cameraRight(glm::vec3(0.0f,0.0f,0.0f))
+
 
 {
     cameraSpeed = 3;
+    maxMagnitude = 10;
+
 }
 
 
 glm::mat4 CameraData::calcViewMatrix(OpenGlUserInput & input)
 {
     glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
-    glm::vec3 cameraRight = glm::normalize(glm::cross(cameraUp, cameraDirection));
+    cameraRight = glm::normalize(glm::cross(cameraUp, cameraDirection));
     glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
 
     float xoffset = input.currentX - input.lastX;
@@ -42,6 +45,7 @@ glm::mat4 CameraData::calcViewMatrix(OpenGlUserInput & input)
         pitch = 89.0f;
     if (pitch < -89.0f)
         pitch = -89.0f;
+
 
 
     glm::vec3 front(1.0);

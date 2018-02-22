@@ -13,12 +13,15 @@ struct CameraData {
     glm::mat4 calcViewMatrix(OpenGlUserInput &);
 
     glm::vec3 velocity;
-    glm::vec3 velocityLimit;
 
+    glm::vec3 cameraRight;
     glm::vec3 cameraFront;
     glm::vec3 cameraUp;
     glm::vec3 cameraPos;
     glm::vec3 cameraTarget;
+
+    float magnitude;
+    float maxMagnitude;
 
     float cameraSpeed;
 
