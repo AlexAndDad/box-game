@@ -11,7 +11,24 @@ OpenGlUserInput::OpenGlUserInput(GLFWwindow *window_)
     glfwSetWindowUserPointer(window, this);
 
     glfwSetKeyCallback(window, &OpenGlUserInput::getInput);
-    //glfwSetCursorPosCallback(window,&OpenGlUserInput::)
+    glfwSetCursorPosCallback(window,&OpenGlUserInput::getMouse);
+}
+
+void OpenGlUserInput::getMouse(GLFWwindow *window, double xpos, double ypos)
+{
+    auto pv = glfwGetWindowUserPointer(window);
+    auto self = reinterpret_cast<OpenGlUserInput*>(pv);
+    if (self->firstMouse)
+    {
+        self->lastX = xpos;
+        self->lastY = ypos;
+        self->firstMouse = false;
+    }
+
+    self->lastX = self->currentX;
+    self->lastY = self->currentY;
+    self->currentX = xpos;
+    self->currentY = ypos;
 }
 
 

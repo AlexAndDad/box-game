@@ -13,7 +13,7 @@ struct OpenGlUserInput:UserInput {
 
 
     static void getInput(GLFWwindow* window,int key, int scancode, int action, int mods);
-
+    static void getMouse(GLFWwindow* window,double xpos, double ypos);
 
     GLFWwindow * window;
 

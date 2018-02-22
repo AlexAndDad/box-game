@@ -30,6 +30,7 @@ DisplayController::DisplayController()
     glfwGetCurrentContext();
     glEnable(GL_DEPTH_TEST);
     glfwSwapInterval(1);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 

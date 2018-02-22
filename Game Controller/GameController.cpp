@@ -4,7 +4,7 @@
 
 #include "GameController.h"
 
-GameController::GameController(OpenGlUserInput const & input)
+GameController::GameController(OpenGlUserInput & input)
                         :cameraController(input)
                         ,userInput(input)
 {}
@@ -18,5 +18,5 @@ void GameController::update()
 
 glm::mat4 GameController::calcViewMatrix()
 {
-    return cameraController.cameraData.calcViewMatrix();
+    return cameraController.cameraData.calcViewMatrix(userInput);
 }

@@ -5,7 +5,7 @@
 #include "CameraController.h"
 
 
-CameraController::CameraController(const OpenGlUserInput &input)
+CameraController::CameraController(OpenGlUserInput &input)
         : userInput(input) {}
 
 

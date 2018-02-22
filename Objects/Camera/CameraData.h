@@ -10,7 +10,7 @@ struct CameraData {
 
     CameraData();
 
-    glm::mat4 calcViewMatrix() const;
+    glm::mat4 calcViewMatrix(OpenGlUserInput &);
 
     glm::vec3 velocity;
     glm::vec3 velocityLimit;
@@ -21,6 +21,9 @@ struct CameraData {
     glm::vec3 cameraTarget;
 
     float cameraSpeed;
+
+    float yaw   = -45.0f;
+    float pitch =  0.0f;
 
 };
 

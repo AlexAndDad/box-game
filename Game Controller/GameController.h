@@ -9,14 +9,14 @@
 
 struct GameController {
 
-    GameController(OpenGlUserInput const & input);
+    GameController(OpenGlUserInput & input);
 
     glm::mat4 calcViewMatrix();
     void update();
 
 
     CameraController cameraController;
-    OpenGlUserInput const & userInput;
+    OpenGlUserInput & userInput;
 
 
 

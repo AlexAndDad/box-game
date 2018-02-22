@@ -15,16 +15,40 @@ CameraData::CameraData()
         ,velocityLimit(glm::vec3(6.0f,6.0f,6.0f))
 
 {
-    cameraSpeed = 0.5;
+    cameraSpeed = 3;
 }
 
 
-glm::mat4 CameraData::calcViewMatrix() const
+glm::mat4 CameraData::calcViewMatrix(OpenGlUserInput & input)
 {
     glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
     glm::vec3 cameraRight = glm::normalize(glm::cross(cameraUp, cameraDirection));
     glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
 
+    float xoffset = input.currentX - input.lastX;
+    float yoffset = input.lastY - input.currentY;
+
+    input.lastX= input.currentX;
+    input.lastY= input.currentY;
+
+    float sensitivity = 0.5f;
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
+
+    yaw += xoffset;
+    pitch += yoffset;
+
+    if (pitch > 89.0f)
+        pitch = 89.0f;
+    if (pitch < -89.0f)
+        pitch = -89.0f;
+
+
+    glm::vec3 front(1.0);
+    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    front.y = sin(glm::radians(pitch));
+    front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    cameraFront = glm::normalize(front);
 
     glm::mat4 view(1.0f);
     view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);

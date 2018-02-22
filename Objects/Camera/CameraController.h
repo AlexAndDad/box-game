@@ -11,11 +11,11 @@
 struct CameraController {
 
 
-    CameraController(OpenGlUserInput const & input);
+    CameraController(OpenGlUserInput & input);
     void update();
 
     CameraData cameraData;
-    OpenGlUserInput const &userInput;
+    OpenGlUserInput &userInput;
 
     float deltaTime=0.0,lastFrame=0.0;
 
