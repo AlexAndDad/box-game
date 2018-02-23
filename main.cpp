@@ -12,6 +12,8 @@
 
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <algorithm>
+#include <array>
 
 #include "Display/DisplayController.h"
 #include "Input/OpenGlUserInput.h"
@@ -22,8 +24,9 @@
 #include "RenderSettings/RenderSettings.h"
 #include "Objects/Box/BoxViewService.h"
 #include "Resources/resource_path.hpp"
-
+#include "Objects/LightBox/LightBoxController.h"
 #include <ft2build.h>
+#include <Objects/LightBox/LightBoxViewService.h>
 #include FT_FREETYPE_H
 
 int main(int argc, const char** argv)
@@ -56,65 +59,56 @@ int main(int argc, const char** argv)
     renderSettings.setProjectionMatrix(45.0, openGLDisplay.SCR_WIDTH, openGLDisplay.SCR_HEIGHT);
 
 
+    LightBoxController light1({1,0,1});
 
-    BoxController Box("awesomeface.png");
-    BoxController Box2("container.jpg",BoxData(2,-2,0));
-    BoxController Box3("container.jpg",BoxData(3,-2,0));
-    BoxController Box4("container.jpg",BoxData(4,-2,0));
-    BoxController Box5("container.jpg",BoxData(5,-2,0));
-    BoxController Box6("container.jpg",BoxData(6,-2,0));
-    BoxController Box7("container.jpg",BoxData(7,-2,0));
+    std::string temp = "container.jpg";
 
-    BoxController Box21("container.jpg",BoxData(2,-2,1));
-    BoxController Box31("container.jpg",BoxData(3,-2,1));
-    BoxController Box41("container.jpg",BoxData(4,-2,1));
-    BoxController Box51("container.jpg",BoxData(5,-2,1));
-    BoxController Box61("container.jpg",BoxData(6,-2,1));
-    BoxController Box71("container.jpg",BoxData(7,-2,1));
+    std::vector<std::vector<BoxController>> BoxCol;
+    std::vector<BoxController> Boxrow;
 
-    BoxController Box22("container.jpg",BoxData(2,-2,2));
-    BoxController Box32("container.jpg",BoxData(3,-2,2));
-    BoxController Box42("container.jpg",BoxData(4,-2,2));
-    BoxController Box52("container.jpg",BoxData(5,-2,2));
-    BoxController Box62("container.jpg",BoxData(6,-2,2));
-    BoxController Box72("container.jpg",BoxData(7,-2,2));
+    for (int x = 0;x<20;x++)
+    {
+        BoxCol.emplace_back();
+        for (int y=0;y<20;++y)
+        {
+            if (x == 0 || x == 19  || y == 0 || y == 19)
+            {
+                BoxCol[x].emplace_back("awesomeface.png",BoxData{x,-2,y});
+            }
+            else
+                BoxCol[x].emplace_back(temp,BoxData{x,-2,y});
+        }
+    }
+
+
+
+
 
 
      while (!glfwWindowShouldClose(openGLDisplay.window)) {
 
-        glClearColor(0.3f, 0.3f, 0.6f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+         glClearColor(0.3f, 0.3f, 0.6f, 1.0f);
+         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-        gameController.update();
-        auto viewMatrix = gameController.calcViewMatrix();
-        renderSettings.setViewMatrix(viewMatrix);
+         gameController.update();
+         auto viewMatrix = gameController.calcViewMatrix();
+         renderSettings.setViewMatrix(viewMatrix);
 
 
-        BoxViewService::acquire(renderSettings);
+         BoxViewService::acquire(renderSettings);
 
+         LightBoxViewService::acquire(renderSettings);
 
-        Box.Draw();
-        Box2.Draw();
-        Box3.Draw();
-        Box4.Draw();
-        Box5.Draw();
-        Box6.Draw();
-        Box7.Draw();
+         light1.Draw();
 
-        Box21.Draw();
-        Box31.Draw();
-        Box41.Draw();
-        Box51.Draw();
-        Box61.Draw();
-        Box71.Draw();
-
-        Box22.Draw();
-        Box32.Draw();
-        Box42.Draw();
-        Box52.Draw();
-        Box62.Draw();
-        Box72.Draw();
+         for (auto & x : BoxCol)
+         {
+             for (auto & y : x)
+             {
+                 y.Draw();
+             }
+         }
 
 
 
@@ -122,7 +116,7 @@ int main(int argc, const char** argv)
 
 
 
-
+        std::cout << glfwGetTime() << std::endl;
 
 
 

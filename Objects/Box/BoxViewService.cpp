@@ -5,6 +5,7 @@
 #include "BoxViewService.h"
 #include "BoxVAO.h"
 #include "Resources/resource_path.hpp"
+#include "Textures/TextureGen/TextureGen.h"
 
 BoxViewService::BoxViewService()
 {
@@ -28,21 +29,23 @@ std::unique_ptr<BoxViewService>& BoxViewService::storage()
 
 BoxViewService& BoxViewService::acquire(RenderSettings const &renderSettings)
 {
+    auto & self = acquire();
+
+
+    self.view = renderSettings.viewMatrix;
+    self.projection = renderSettings.projectionMatrix;
+    return self;
+}
+
+BoxViewService& BoxViewService::acquire()
+{
+
     auto & self = storage();
     if (!self)
     {
         self.reset(new BoxViewService);
     }
 
-    self->view = renderSettings.viewMatrix;
-    self->projection = renderSettings.projectionMatrix;
-    return * self;
-}
-
-BoxViewService& BoxViewService::acquire()
-{
-    auto & self = storage();
-    assert(self);
     return * self;
 }
 
@@ -69,4 +72,25 @@ void BoxViewService::Draw()
 {
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 36);
+}
+
+
+
+unsigned int BoxViewService::acquireTexture(std::string const &texture_)
+{
+
+    auto & result =  textures[texture_];
+    if (result == 0)
+    {
+        TextureGen temp(texture_);
+        result = temp.texture;
+    }
+
+    return result;
+
+
+
+
+
+
 }

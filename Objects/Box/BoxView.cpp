@@ -12,9 +12,13 @@
 BoxView::BoxView(std::string texture_)
 {
 
+    auto & service = BoxViewService::acquire();
+
+    texture = service.acquireTexture(texture_);
+
     // 1) Generate Texture
-    TextureGen temp(texture_);
-    texture = temp.texture;
+   // TextureGen temp(texture_);
+    //texture = temp.texture;
 
 }
 

@@ -10,4 +10,6 @@ BoxData::BoxData(float x, float y, float z) {
     coordY = y;
     coordZ = z;
 
+
+
 }
