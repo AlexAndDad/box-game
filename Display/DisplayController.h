@@ -19,7 +19,7 @@ struct DisplayController {
 
 
     GLFWwindow* window;
-    int SCR_WIDTH = 200,SCR_HEIGHT = 200;
+    float SCR_WIDTH = 200,SCR_HEIGHT = 200;
 
 };
 

@@ -11,6 +11,25 @@
 CameraController::CameraController(OpenGlUserInput &input)
         : userInput(input) {}
 
+auto reduce_speed(glm::vec3 u, float scalar_deceleration, float t) -> glm::vec3
+{
+    auto mu = glm::length(u);
+
+    if (mu != 0)
+    {
+        auto minus_u = -u;
+        auto du = glm::normalize(minus_u) * scalar_deceleration * t;
+        if (glm::length(du) >= glm::length(minus_u))
+        {
+            du = minus_u;
+        }
+        return u + du;
+    }
+    return u;
+}
+
+
+
 
 void CameraController::update() {
     //Record time between last and current frame
@@ -57,7 +76,6 @@ void CameraController::update() {
     {
         glm::vec3 top(0.0f,1.0f,0.0f);
         auto right = glm::cross(glm::normalize(cameraData.cameraFront),glm::normalize(top));
-        //auto temp = glm::rotate(cameraData.cameraFront,glm::radians(-90.0),glm::vec3(0.0f,1.0f,0.0));
         cameraData.velocity.x += right.x * 60 * deltaTime;
         cameraData.velocity.z += right.z * 60 * deltaTime;
         cameraData.magnitude = calMag(cameraData);
@@ -85,16 +103,27 @@ void CameraController::update() {
     }
 
 
-
-
-
-
     cameraData.cameraPos.x += cameraData.velocity.x * deltaTime;
-    cameraData.cameraPos.y += cameraData.velocity.y * deltaTime;
     cameraData.cameraPos.z += cameraData.velocity.z * deltaTime;
 
 
 
+        cameraData.velocity = reduce_speed(cameraData.velocity,10.0,deltaTime);
 
+
+
+    /*
+    auto antiVec = glm::normalize(cameraData.velocity) * -1.0f;
+    if (calMag(cameraData) > 0.1)
+    {
+        cameraData.velocity.x += antiVec.x * 10 * deltaTime;
+        cameraData.velocity.z += antiVec.z * 10 * deltaTime;
+    }
+    if (calMag(cameraData) <= 0.1)
+    {
+        cameraData.velocity.x = 0;
+        cameraData.velocity.z = 0;
+    }
+*/
 
 }

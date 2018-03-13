@@ -5,5 +5,5 @@ sugar_files(SOURCE_FILES BoxData.cpp BoxData.h
                          BoxViewService.cpp BoxViewService.h)
 
 
-sugar_files(RESOURCE_FILES FragmentShader.glsl VertexShader.glsl)
+sugar_files(RESOURCE_FILES "FragmentShader.glsl" "VertexShader.glsl")
 

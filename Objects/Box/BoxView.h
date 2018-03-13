@@ -29,12 +29,8 @@ struct BoxView {
 
     void Draw(BoxData const & boxData);
 
-
     glm::mat4 getModelMatrix(BoxData const & boxData);
 
-
-
-    std::string texture_current;
     unsigned int texture;
 
 

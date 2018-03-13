@@ -29,6 +29,7 @@ find_package(sugar CONFIG REQUIRED)
 set(program_name Box_Game)
 
 sugar_include(Display)
+sugar_include(Projectile\ gun)
 sugar_include(Fonts)
 sugar_include(Input)
 sugar_include(Objects)

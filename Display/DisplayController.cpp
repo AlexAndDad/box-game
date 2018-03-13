@@ -21,6 +21,7 @@ DisplayController::DisplayController()
     if (window == nullptr) {
         std::cout << "Failed to create GLFW window";
         glfwTerminate();
+        std::exit(100);
     }
     else {
         glfwMakeContextCurrent(window);
@@ -31,6 +32,8 @@ DisplayController::DisplayController()
     glEnable(GL_DEPTH_TEST);
     glfwSwapInterval(1);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 

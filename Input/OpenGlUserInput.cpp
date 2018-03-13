@@ -12,6 +12,7 @@ OpenGlUserInput::OpenGlUserInput(GLFWwindow *window_)
 
     glfwSetKeyCallback(window, &OpenGlUserInput::getInput);
     glfwSetCursorPosCallback(window,&OpenGlUserInput::getMouse);
+    glfwSetMouseButtonCallback(window,&OpenGlUserInput::getMouseClick);
 }
 
 void OpenGlUserInput::getMouse(GLFWwindow *window, double xpos, double ypos)
@@ -62,4 +63,19 @@ void OpenGlUserInput::getInput(GLFWwindow* window,int key, int scancode , int ac
         self->keys_pressed[CameraRight] = pressed(action);
     }
 
+}
+
+void OpenGlUserInput::getMouseClick(GLFWwindow *window, int button, int action, int mods)
+{
+    auto pv = glfwGetWindowUserPointer(window);
+    auto self = reinterpret_cast<OpenGlUserInput*>(pv);
+
+    if (action == GLFW_RELEASE)
+    {
+        self->leftMouseClicked = false;
+    }
+    else if (action == GLFW_PRESS && button == GLFW_MOUSE_BUTTON_LEFT)
+    {
+        self->leftMouseClicked = true;
+    }
 }

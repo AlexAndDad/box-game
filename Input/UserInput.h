@@ -27,6 +27,7 @@ struct UserInput :boost::noncopyable {
     float currentX = 0.0;
     float currentY = 0.0;
 
+    bool leftMouseClicked = false;
 
 
 protected:

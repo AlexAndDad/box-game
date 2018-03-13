@@ -5,6 +5,7 @@
 #ifndef BOX_GAME_OPENGLUSERINPUT_H
 #define BOX_GAME_OPENGLUSERINPUT_H
 #include "UserInput.h"
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 struct OpenGlUserInput:UserInput {
@@ -14,6 +15,7 @@ struct OpenGlUserInput:UserInput {
 
     static void getInput(GLFWwindow* window,int key, int scancode, int action, int mods);
     static void getMouse(GLFWwindow* window,double xpos, double ypos);
+    static void getMouseClick(GLFWwindow* window, int button, int action, int mods);
 
     GLFWwindow * window;
 

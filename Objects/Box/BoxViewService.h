@@ -4,6 +4,7 @@
 
 #ifndef BOX_GAME_BOXVIEWSERVICE_H
 #define BOX_GAME_BOXVIEWSERVICE_H
+
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <glm/glm.hpp>
@@ -12,6 +13,7 @@
 #include "ShaderGen/Shaders.h"
 #include "RenderSettings/RenderSettings.h"
 #include <unordered_map>
+
 struct BoxViewService {
 
 
