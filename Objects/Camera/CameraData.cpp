@@ -34,7 +34,7 @@ glm::mat4 CameraData::calcViewMatrix(OpenGlUserInput & input)
     input.lastX= input.currentX;
     input.lastY= input.currentY;
 
-    float sensitivity = 0.5f;
+    float sensitivity = 1.5f;
     xoffset *= sensitivity;
     yoffset *= sensitivity;
 

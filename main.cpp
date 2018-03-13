@@ -237,6 +237,8 @@ int main(int argc, const char** argv)
 
         ProjectileViewService::acquire(renderSettings);
 
+        gameController.draw();
+
          light1.Draw();
 
          for (auto & x : BoxCol)

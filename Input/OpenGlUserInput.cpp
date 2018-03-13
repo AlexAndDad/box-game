@@ -70,7 +70,7 @@ void OpenGlUserInput::getMouseClick(GLFWwindow *window, int button, int action, 
     auto pv = glfwGetWindowUserPointer(window);
     auto self = reinterpret_cast<OpenGlUserInput*>(pv);
 
-    if (action == GLFW_RELEASE)
+    if (action != GLFW_PRESS)
     {
         self->leftMouseClicked = false;
     }
