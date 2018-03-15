@@ -22,10 +22,10 @@ struct UserInput :boost::noncopyable {
     bool isKeyPressed(GameKey key) const;
 
     bool firstMouse;
-    float lastX =  800.0f / 2.0;
-    float lastY =  600.0 / 2.0;
-    float currentX = 0.0;
-    float currentY = 0.0;
+    double lastX =  800.0f / 2.0;
+    double lastY =  600.0 / 2.0;
+    double currentX = 0.0;
+    double currentY = 0.0;
 
     bool leftMouseClicked = false;
 

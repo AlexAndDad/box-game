@@ -7,19 +7,28 @@
 #include "Objects/Camera/CameraController.h"
 #include "Input/OpenGlUserInput.h"
 #include "Projectile gun/ProjectileController.h"
+#include "Text/TextManager.h"
+#include "Display/DisplayController.h"
+#include "RenderSettings/RenderSettings.h"
 
 struct GameController {
 
-    GameController(OpenGlUserInput & input);
+    GameController(OpenGlUserInput & input, DisplayController & openGlDisplay);
 
     glm::mat4 calcViewMatrix();
     void update();
     void draw();
+    void enableDebugText();
+    void updateRenderSettings();
+
+    bool debugText = false;
 
 
     CameraController cameraController;
     OpenGlUserInput & userInput;
     ProjectileController projectileController;
+    TextManager textManager;
+    RenderSettings renderSettings;
 
 
 
